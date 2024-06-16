@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SMART HOME</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+    </head>
+    <body onload = "dongho(), ClickLivingRoom(), sync_Firebase()">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+        <div class="header">
+            <h1>SMART HOME</h1>
+            <p id="time"></p>
+          </div>
+        
+          <div class="topnav">
+            <button class="tablinks" onclick = "ClickLivingRoom()">Living Room</button>
+            <button class="tablinks" onclick = "ClickBedRoom()">Bedroom</button>
+            <button class="tablinks" onclick = "ClickKitchen()">Kitchen</button>  
+            <button class="tablinks" onclick = "ClickVD()">Visualize Data</button>  
+          </div>
+          
+        <div class="row">
+            <div class="leftcolumn">
+                <div class="bgr_img" id="bgr_img"></div>
+
+            <div class='room' id="living-room">
+              <div class="card">
+                <div class="column">
+                    <p>Temperature</p>
+                    <p><img src="img/hot.png" alt="Nhiệt độ" class="image"></p>
+                    <p id="TemperatureLivingRoom" class="Show"></p>
+                </div>
+                <div class="column">
+                    <p>Humidity</p>
+                    <p><img src="img/humidity.png" alt="Độ ẩm" class="image"></p>
+                    <p id="HumidityLivingRoom" class="Show"></p>
+                </div>
+                <div class="column">
+                    <p>Gas</p>
+                    <p><img src="img/gasoff.png" alt="Gas" class="image"></p>
+                    <p id="GasLivingRoom" class="Show"></p>
+                </div>
+              </div>    <!--Kết thúc thẻ card-->
+              <div class="card">
+                <div class="column">
+                    <p>Air-conditioner</p>
+                    <p><img id="dieuhoaphongkhach" src="img/airoff.png" alt="Điều hòa" class="image"></p>
+                    <input type="range" id="airConditionerSlider" min="15" max="32" step="1" value="0">
+                    <p id="sliderValue">Off</p>
+                </div>
+
+
+              </div>
+                
+                  <div class="column">
+                      <p>Lamp</p>
+                      <p><img id="denphongkhach" src="img/lamp1.png" alt="Đèn" class="image"></p>
+                      <button class="btn" id="den1" onclick="LampLivingroom()"></button>
+
+                  </div>
+                  <div class="column">
+                      <p>TV</p>
+                      <p><img id="tiviphongkhach" src="img/TVoff.png" alt="Television" class="image"></p>
+                      <button class="btn" id="ontv1" onclick="onTelevisionLivingRoom()">On</button>
+                      <button class="btn" onclick="offTelevisionLivingRoom()">Off</button>
+                  </div>     <!--  Kết thúc thẻ cột -->
+              </div>    <!--Kết thúc thẻ card-->
+            </div>      <!-- Kết thúc thẻ livingroom -->
+            <div class='room' id="bedroom">
+
+                <div class="card">
+                  <div class="column" id="bedroom-column">
+                      <p>Temperature</p>
+                      <p><img src="img/hot.png" alt="Nhiệt độ" class="image"></p>
+                      <p id="TemperatureBedroom" class="Show"></p>
+                  </div>
+                  <div class="column" id="bedroom-column">
+                      <p>Humidity</p>
+                      <p><img src="img/humidity.png" alt="Độ ẩm" class="image"></p>
+                      <p id="HumidityBedroom" class="Show"></p>
+                  </div>
+                  <div class="column" id="bedroom-column">
+                      <p>Gas</p>
+                      <p><img src="img/gasoff.png" alt="Gas" class="image"></p>
+                      <p id="GasBedroom" class="Show"></p>
+                  </div>
+                </div>
+                <div class="card">
+                    <div class="column" id="bedroom-column">
+                        <p>Air-conditioner</p>
+                        <p><img id="dieuhoaphongngu" src="img/airoff.png" alt="Điều hòa" class="image"></p>
+                        <button class="btn" id="ondh2" onclick="onairBedroom()">On</button>
+                        <button class="btn" onclick="offairBedroom()">Off</button>
+                        <p id="ttdh"></p> 
+                    </div>
+                    <div class="column" id="bedroom-column">
+                        <p>Lamp</p>
+                        <p><img id="denphongngu" src="img/lamp1.png" alt="Lamp" class="image"></p>
+                        <button class="btn" id="onden2" onclick="onLampBedroom()">On</button>
+                        <button class="btn" onclick="offLampBedroom()">Off</button>
+                    </div>
+                    <div class="column" id="bedroom-column">
+                        <p>Lullaby</p>
+                        <p><img id="nhacphongngu" src="img/musicoff.png" alt="Lullaby" class="image"></p>
+                        <button class="btn" id="onlu2" onclick="onLullabyBedroom()">Play</button>
+                        <button class="btn"  onclick="offLullabyBedroom()">Stop</button>
+                    </div>     <!--  Kết thúc thẻ cột -->
+                </div>    <!--Kết thúc thẻ card-->
+            </div>      <!-- Kết thúc thẻ bedroom -->
+            <div class='room' id="kitchen">
+                <div class="card">
+                    <div class="column">
+                        <p>Temperature</p>
+                        <p><img src="img/hot.png" alt="Nhiệt độ" class="image"></p>
+                        <p id="TemperatureKitchen" class="Show"></p>
+                    </div>
+                    <div class="column">
+                        <p>Humidity</p>
+                        <p><img src="img/humidity.png" alt="Độ ẩm" class="image"></p>
+                        <p id="HumidityKitchen" class="Show"></p>
+                    </div>
+                    <div class="column">
+                        <p>Gas</p>
+                        <p><img src="img/gasoff.png" alt="Gas" class="image"></p>
+                        <p id="GasKitchen" class="Show"></p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <p>Extractor hood</p>
+                        <p><img id="hutmuiphongbep" src="img/extractor_hood_off.png" alt="Hút Mùi" class="image"></p>
+                        <button class="btn" id="onex3" onclick="onCaxHoodKitchen()">On</button>
+                        <button class="btn" onclick="offCaxHoodKitchen()">Off</button>
+                    </div>
+                    <div class="column">
+                        <p>Light</p>
+                        <p><img id="bongdenphongbep" src="img/bulb_off.png" alt="Bóng Đèn" class="image"></p>
+                        <button class="btn" id="onden3" onclick="onLampKitchen()">On</button>
+                        <button class="btn" onclick="offLampKitchen()">Off</button>
+                    </div>
+                    <div class="column">
+                        <p>Fan</p>
+                        <p><img id="quatphongbep" src="img/fan_off.png" alt="Quạt" class="image"></p>
+                        <button class="btn" id="onquat3" onclick="onFanKitchen()">On</button>
+                        <button class="btn" onclick="offFanKitchen()">Off</button>
+                    </div>     <!--  Kết thúc thẻ cột -->
+                </div>    <!--Kết thúc thẻ card-->
+            </div>      <!-- Kết thúc thẻ kitchen -->
+            <div class='room' id="visualize data">
+                <div class="chart-container">
+                    <div class="chart-row">
+                    <canvas id="LivingroomChart" class="chart"></canvas>
+                    <canvas id="BedroomChart" class="chart"></canvas>
+                    <canvas id="KitchenChart" class="chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            </div> <!-- Kết thúc thẻ left-column -->
+        </div>
+          
+        <div class="footer">
+            <div class = column-footer>
+                <p>Trường Đại học Sư phạm Kỹ Thuật - Ho Chi Minh University Technology Education<br>
+                    Khoa: Điện - Điện tử <br>
+                    Môn học: Thực tập Kiến trúc và Giao thức IoT<br>
+                    Lớp: 21139 <br>
+                    Bài báo cáo thực tập <br>
+                </p>
+            </div>
+            <div class = column-footer>
+                <p> Nội dung: Thiết kế giao diện người dùng cho ứng dụng nhà thông minh<br>
+                    Nhóm sinh viên: <br>
+                    1. Cao Tiến Sỹ <br>
+                    2. Châu Lê Thủy Tiên <br>
+                    3. Dương Triều Mến <br>
+                </p>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+        <script src="./main.js"></script>
+    </body>
+</html>
